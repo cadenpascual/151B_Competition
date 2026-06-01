@@ -1,15 +1,20 @@
-# CSE 151B Competition — Starter Code
+# CSE 151B Competition - Qwen3 Math Fine-Tuning
 
-Open **`starter_code_cse151b_comp.ipynb`** to get started.
+## Hardware & Performance
+* **GPU Used:** NVIDIA A30 (via DSMLP Cluster)
+* **Approximate Training Time:** ~4.5 hours for Stage 2 GRPO, ~5 hours for Stage 1 SFT
+* **Approximate Inference Time:** ~1 hour for the private test set.
 
-The notebook covers environment setup, inference with Qwen3-4B-Thinking (INT8), and scoring against the public dataset.
+## Setup Instructions
+No local weights need to be downloaded. The `run_inference()` function will automatically download the fine-tuned LoRA adapters and base model directly from Hugging Face. Ensure your environment has the following installed:
+`pip install unsloth torch pandas tqdm datasets trl transformers`
 
-## Contents
-
-| File | Description |
-|---|---|
-| `starter_code_cse151b_comp.ipynb` | Main entry point |
-| `judger.py` | Response scoring logic |
-| `utils.py` | Utilities used by `judger.py` |
-| `data/public.jsonl` | Public dataset with ground-truth answers |
-| `results/` | Output JSONL files written at runtime |
+## How to Reproduce Results
+Simply execute the Jupyter Notebook `run_inference.ipynb` or call the function directly from the script:
+```python
+from run_inference import run_inference
+run_inference(
+    model_path="your-hf-username/qwen-math-151b-champion", 
+    test_data_path="data/private.jsonl", 
+    output_csv_path="submission.csv"
+)
